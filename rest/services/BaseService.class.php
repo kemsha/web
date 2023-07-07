@@ -18,7 +18,7 @@ abstract class BaseService{
     public function update($params,$id){
         return $this->dao->update($params,$id);
     }
-    public funciton delete($id){
+    public function delete($id){
         return $this->dao->delete($id);
     }
 }
