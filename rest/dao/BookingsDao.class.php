@@ -2,11 +2,13 @@
 
 require_once __DIR__.'/BaseDao.class.php';
 
-class SharedNoteDao extends BaseDao{
+class BookingsDao extends BaseDao{
 
     public function __construct(){
-        parent::__construct("shared notes");
+        parent::__construct("bookings");
     }
 }
+
+
 
 ?>

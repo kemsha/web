@@ -4,7 +4,7 @@ class Config
 {
     public static function DB_HOST()
     {
-        return Config::getEnv("DB_HOST", "127.0.0.1");
+        return Config::getEnv("DB_HOST", "localhost");
     }
 
     public static function DB_USERNAME()

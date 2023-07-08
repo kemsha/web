@@ -11,16 +11,18 @@
         private $conn;
         private $table_name;
 
-        public function __construct($table_name){
+        public function __construct($table_name)
+        {
             $this->table_name = $table_name;
+    
             $servername = Config::DB_HOST();
             $username = Config::DB_USERNAME();
             $password = Config::DB_PASSWORD();
             $schema = Config::DB_SCHEME();
             $port = Config::DB_PORT();
-
-            $this->conn = new PDO("mysql:host = $servername;dbname=$schema;port=$port, $username, $password");
-
+    
+            $this->conn = new PDO("mysql:host=$servername;dbname=$schema;port=$port", $username, $password);
+            // set the PDO error mode to exception
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 
