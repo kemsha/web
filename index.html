@@ -1,57 +1,197 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Bitnami: Open Source. Simplified</title>
-<link href="bitnami.css" media="all" rel="Stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <title>ToDo App</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+  <style>
+    .error{
+      color:red;
+    }
+  </style>
 </head>
+
 <body>
-<div id="container">
-  <div id="header"> 
-    <div id="bitnami">
-        <a href="/"><img alt="Bitnami" src="img/bitnami.png?1186088387" /></a>
-    </div>
-  </div>
-    <div id="menu_launch_page">
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <td><img src="img/tab1_welcome.png" alt="" /></td>
-        </tr>
-      </table>
-    </div>
-  <div id="lowerContainer">
-    <div id="content">
-        <div align="center">
-<table class="tableParagraph">
-<tr>
-<td class="container">
-<img align="left" src="img/wampstack.png" alt="WAMP packaged by Bitnami"/>
-<p>We created the Bitnami Project to help spread the adoption of freely
-available, high quality Open Source web applications. Bitnami aims to make
-it easier than ever to discover, download and install Open Source software such 
-as document and content management systems, wikis and blogging software.<br/><br/>
-
-You can learn more about Bitnami at <a href="https://bitnami.com">https://bitnami.com</a><br/><br/>
-
-The WAMP packaged by Bitnami is an easy to install
-software platform that greatly simplifies the deployment of Open Source web
-stacks. It includes ready-to-run versions of
-Apache, MariaDB and PHP. WAMP packaged by Bitnami is
-distributed for free under the Apache 2.0 license.<br/><br/> 
-To get started with WAMP packaged by Bitnami we suggest the following:<br/><br/>
-
-
-<b>1.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/">Check our documentation</a></b>. The stack is self-contained and independent on your system, you can find all components in your installation directory: C:/Bitnami/wampstack-8.1.2-0<br/><br/>
-<b>2.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/administration/control-services-linux/">Start the servers.</a></b> Open the graphical "Manager" tool in your installation directory to start &amp; stop the installed servers. You can also use "ctlscript.sh" from the command line prompt. <br/><br/>
-<b>3.- <a target="_blank" href="https://docs.bitnami.com/installer/infrastructure/wamp/administration/create-custom-application-php/">Deploy your own project</a></b>.
-</p>
-</td>
-</tr>
-</table>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ToDo Application</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="button" onclick="UserService.logout()">Logout</button>
+          </form>
         </div>
-        <br/><br/>
-   </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container marketing" style="margin-top:100px;">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#addNoteModal">New Note</button>
+        </div>
+      </div>
+
+      <div id="note-list" class="row">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div><!-- /.row -->
+    </div>
+
+  </main>
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="js/note-service.js"></script>
+<script src="js/todo-service.js"></script>
+<script src="js/user-service.js"></script>
+
+<!-- Share Modal -->
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Share Note</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row" id="shareNoteForm">
+          <div class="col-auto">
+            <input type='hidden' name='note_id'/>
+            <label class="visually-hidden">Email</label>
+            <input name="recipient" type="text" class="form-control-plaintext" value="dino.keco@ibu.edu.ba">
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" onclick="NoteService.share_note()">Share</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
   </div>
 </div>
-</body>
+
+<!-- Add/Update Modal -->
+<div class="modal fade" id="addNoteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="addNoteForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Note</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="id" />
+            <div class="form-group">
+              <label>Name</label>
+              <input name="name" type="text" class="form-control required" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input name="description" type="text" class="form-control required" placeholder="Enter description">
+            </div>
+            <div class="form-group">
+              <label>Color</label>
+              <input name="color" value="white" type="hidden" class="form-control required" placeholder="Enter color">
+              <div class="form-control btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn" style="background-color:red; color:red;" onclick="NoteService.choose_color('red');">X</button>
+                <button type="button" class="btn" style="background-color:yellow; color: yellow;" onclick="NoteService.choose_color('yellow');">X</button>
+                <button type="button" class="btn" style="background-color:blue; color:blue;" onclick="NoteService.choose_color('blue');">X</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Created</label>
+              <input name="created" type="date" class="form-control required" placeholder="Created date">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="todoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">ToDos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+            <div id="notes-todos" class="list-group">
+              <div class="list-group-item">
+                <button class="btn btn-danger btn-sm float-end">delete</button>
+                <p class="list-group-item-text">kkkkkk</p>
+              </div>
+              <div class="list-group-item">
+                <button class="btn btn-danger btn-sm float-end">delete</button>
+                <p class="list-group-item-text">kkkkkk</p>
+              </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+          <form id="add-todo-form" class="form">
+            <input name="note_id" type="hidden" />
+            <div class="row" style="padding: 20px;">
+              <div class="col-sm-4">
+                <input name="description" type="text" class="form-control required" placeholder="Todo">
+              </div>
+              <div class="col-sm-4">
+                <input name="created" type="date" class="form-control required" placeholder="Created">
+              </div>
+              <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary mb-2">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer"> </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var token = localStorage.getItem("token");
+  if (token){
+    NoteService.init();
+  }else{
+    window.location.replace("login.html");
+  }
+</script>
+
 </html>
