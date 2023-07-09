@@ -7,6 +7,8 @@ class AuthService extends BaseService {
     {
         parent::__construct(new AuthDao);
     }
+
+    
 }
 
 ?>

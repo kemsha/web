@@ -15,8 +15,6 @@ class BookingsDao extends BaseDao{
         return self::$instance;
     }
 
-    
-
 }
 
 
