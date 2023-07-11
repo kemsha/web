@@ -8,16 +8,13 @@ class AuthDao extends BaseDao{
         parent::__construct("auth");
     }
 
-    public static function getInstance() {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
     public function getAuthByEmail($email)
     {
         return $this -> queryUnique("Select * From auth Where email= :email", ['email'=>$email]);
+    }
+
+    public function getAuthByID($id){
+        return $this->queryUnique("Select * From auth where id= :id", ['id'=>$id]);
     }
 }
 

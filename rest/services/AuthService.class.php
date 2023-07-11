@@ -7,7 +7,10 @@ class AuthService extends BaseService {
     {
         parent::__construct(new AuthDao);
     }
-
+    
+    public function getAuthByEmail($email){
+        return $this->dao->getAuthByEmail($email);
+    }
     
 }
 

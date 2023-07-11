@@ -8,13 +8,6 @@ class BookingsTickets extends BaseDao {
         parent::__construct("bookingstickets");
     }
 
-    public static function getInstance() {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
     public function getBookingsAndUsers() {
         $stm = "SELECT bt.id, u.first_name, u.last_name, bt.ticket_amount_type AS 'Ticket amount',  t.ticket_type, b.booking_date";
         $stm.= "FROM bookingstickets bt";

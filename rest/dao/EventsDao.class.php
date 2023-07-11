@@ -8,11 +8,9 @@ class EventsDao extends BaseDao{
         parent::__construct("events");
     }
 
-    public static function getInstance() {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
+    public function getEventByName($name)
+    {
+        $this->queryUnique("SELECT e.id FROM events e WHERE event_name = :name", ['name' => $name]);
     }
 }
 

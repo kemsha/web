@@ -8,8 +8,8 @@
 
     class BaseDao {
 
-        private $conn;
-        private $table_name;
+        protected $conn;
+        protected $table_name;
 
         public function __construct($table_name)
         {
@@ -46,16 +46,16 @@
         }
 
         protected function exec_add($params){
-            $stmt = "INSERT INTO ".$this->table_name. "(";
-            foreach($params as $key->$value){
+            $stmt = "INSERT INTO ".$this->table_name." (";
+            foreach ($params as $key=>$value) {
                 $stmt .= " ".$key.",";
             }
-            $stmt = substr($stmt,0,-1);
-            $stmt .= ") VALUES (" ;
-            foreach($params as $key=>$value){
+            $stmt = substr($stmt, 0, -1);
+            $stmt .= ") VALUES (";
+            foreach ($params as $key=>$value) {
                 $stmt .= " :".$key.",";
             }
-            $stmt = substr($stmt,0,-1);
+            $stmt = substr($stmt, 0, -1);
             $stmt .= ")";
             $this->conn->prepare($stmt)->execute($params);
             $params['id'] = $this->conn->lastInsertId();
