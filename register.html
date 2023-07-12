@@ -18,7 +18,19 @@
     <div class="container marketing" style="margin-top:100px;">
       <!-- Three columns of text below the carousel -->
       <div class="row">
-        <form id="login-form">
+        <form id="register-form">
+          <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="first_name" name="first_name" class="form-control" value="First Name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="last_name" name="last_name" class="form-control" value="Last Name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Adress</label>
+            <input type="address" name="address" class="form-control" value="Adress">
+          </div>
           <div class="mb-3">
             <label class="form-label">Email address</label>
             <input type="email" name="email" class="form-control" value="email@email.com">
@@ -27,8 +39,9 @@
             <label class="form-label">Password</label>
             <input type="password" name="password" class="form-control" value="123">
           </div>
-          <button type="submit" class="btn btn-primary">Login</button>
           <button type="submit" class="btn btn-primary">Register</button>
+          <button type="submit" class="btn btn-primary">Login</button>
+          
         </form>
       </div>
     </div>

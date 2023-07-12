@@ -1,17 +1,23 @@
 var UserService = {
-  init: function(){
+  init: function() {
     var token = localStorage.getItem("token");
-    if (token){
+    if (token) {
       window.location.replace("index.html");
     }
     $('#login-form').validate({
       submitHandler: function(form) {
-        var entity = Object.fromEntries((new FormData(form)).entries());
+        var entity = Object.fromEntries(new FormData(form));
         UserService.login(entity);
       }
     });
+    $('#register-form').validate({
+      submitHandler: function(form) {
+        var entity = Object.fromEntries(new FormData(form));
+        UserService.register(entity);
+      }
+    });
   },
-  login: function(entity){
+  login: function(entity) {
     $.ajax({
       url: 'rest/login',
       type: 'POST',
@@ -19,7 +25,6 @@ var UserService = {
       contentType: "application/json",
       dataType: "json",
       success: function(result) {
-        console.log(result);
         localStorage.setItem("token", result.token);
         window.location.replace("index.html");
       },
@@ -28,9 +33,24 @@ var UserService = {
       }
     });
   },
-
-  logout: function(){
+  register: function(entity) {
+    $.ajax({
+      url: 'rest/register',
+      type: 'POST',
+      data: JSON.stringify(entity),
+      contentType: "application/json",
+      dataType: "json",
+      success: function(result) {
+        localStorage.setItem("token", result.token);
+        window.location.replace("login.html");
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        toastr.error(XMLHttpRequest.responseJSON.message);
+      }
+    });
+  },
+  logout: function() {
     localStorage.clear();
     window.location.replace("login.html");
-  },
-}
+  }
+};
