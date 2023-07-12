@@ -1,31 +1,31 @@
-var NoteService = {
+var EventService = {
     init: function(){
-      $('#addNoteForm').validate({
+      $('#addEventForm').validate({
         submitHandler: function(form) {
           var entity = Object.fromEntries((new FormData(form)).entries());
           if (!isNaN(entity.id)){
             // update method
             var id = entity.id;
             delete entity.id;
-            NoteService.update(id, entity);
+            EventService.update(id, entity);
           }else{
             // add method
-            NoteService.add(entity);
+            EventService.add(entity);
           }
         }
       });
-      NoteService.list();
+      EventService.list();
     },
 
     list: function(){
       $.ajax({
-         url: "rest/notes",
+         url: "rest/events",
          type: "GET",
          beforeSend: function(xhr){
            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
          },
          success: function(data) {
-           $("#note-list").html("");
+           $("#event-list").html("");
            var html = "";
            for(let i = 0; i < data.length; i++){
              html += `
@@ -36,17 +36,17 @@ var NoteService = {
                    <h5 class="card-title">`+ data[i].name +`</h5>
                    <p class="card-text">`+ data[i].description +`</p>
                    <div class="btn-group" role="group">
-                     <button type="button" class="btn btn-primary note-button" onclick="NoteService.get(`+data[i].id+`)">Edit</button>
-                     <button type="button" class="btn btn-success note-button" onclick="TodoService.list_by_note_id(`+data[i].id+`)">Manage</button>
-                     <button type="button" class="btn btn-danger note-button" onclick="NoteService.delete(`+data[i].id+`)">Delete</button>
-                     <button type="button" class="btn btn-warning note-button" onclick="NoteService.share(`+data[i].id+`)">Share</button>
+                     <button type="button" class="btn btn-primary event-button" onclick="EventService.get(`+data[i].id+`)">Edit</button>
+                     <button type="button" class="btn btn-success event-button" onclick="TodoService.list_by_event_id(`+data[i].id+`)">Manage</button>
+                     <button type="button" class="btn btn-danger event-button" onclick="EventService.delete(`+data[i].id+`)">Delete</button>
+                     <button type="button" class="btn btn-warning event-button" onclick="EventService.share(`+data[i].id+`)">Share</button>
                    </div>
                  </div>
                </div>
              </div>
              `;
            }
-           $("#note-list").html(html);
+           $("#event-list").html(html);
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
            toastr.error(XMLHttpRequest.responseJSON.message);
@@ -56,52 +56,52 @@ var NoteService = {
     },
 
     get: function(id){
-      $('.note-button').attr('disabled', true);
+      $('.event-button').attr('disabled', true);
 
       $.ajax({
-         url: 'rest/notes/'+id,
+         url: 'rest/events/'+id,
          type: "GET",
          beforeSend: function(xhr){
            xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
          },
          success: function(data) {
-           $('#addNoteForm input[name="id"]').val(data.id);
-           $('#addNoteForm input[name="name"]').val(data.name);
-           $('#addNoteForm input[name="description"]').val(data.description);
-           $('#addNoteForm input[name="created"]').val(data.created);
-           $('#addNoteForm input[name="color"]').val(data.color);
+           $('#addEventForm input[name="id"]').val(data.id);
+           $('#addEventForm input[name="name"]').val(data.name);
+           $('#addEventForm input[name="description"]').val(data.description);
+           $('#addEventForm input[name="created"]').val(data.created);
+           $('#addEventForm input[name="color"]').val(data.color);
 
-           $('.note-button').attr('disabled', false);
-           $('#addNoteModal').modal("show");
+           $('.event-button').attr('disabled', false);
+           $('#addEventModal').modal("show");
          },
          error: function(XMLHttpRequest, textStatus, errorThrown) {
            toastr.error(XMLHttpRequest.responseJSON.message);
-           $('.note-button').attr('disabled', false);
+           $('.event-button').attr('disabled', false);
          }});
     },
 
-    add: function(note){
+    add: function(event){
       $.ajax({
-        url: 'rest/notes',
+        url: 'rest/events',
         type: 'POST',
         beforeSend: function(xhr){
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
-        data: JSON.stringify(note),
+        data: JSON.stringify(event),
         contentType: "application/json",
         dataType: "json",
         success: function(result) {
-            $("#note-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
-            NoteService.list(); // perf optimization
-            $("#addNoteModal").modal("hide");
-            toastr.success("Note added!");
+            $("#event-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
+            EventService.list(); // perf optimization
+            $("#addEventModal").modal("hide");
+            toastr.success("Event added!");
         }
       });
     },
 
     update: function(id, entity){
       $.ajax({
-        url: 'rest/notes/'+id,
+        url: 'rest/events/'+id,
         type: 'PUT',
         beforeSend: function(xhr){
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
@@ -110,45 +110,45 @@ var NoteService = {
         contentType: "application/json",
         dataType: "json",
         success: function(result) {
-            $("#note-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
-            NoteService.list(); // perf optimization
-            $("#addNoteModal").modal("hide");
-            toastr.success("Note updated!");
+            $("#event-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
+            EventService.list(); // perf optimization
+            $("#addEventModal").modal("hide");
+            toastr.success("Event updated!");
         }
       });
     },
 
     delete: function(id){
-      $('.note-button').attr('disabled', true);
+      $('.event-button').attr('disabled', true);
       $.ajax({
-        url: 'rest/notes/'+id,
+        url: 'rest/events/'+id,
         beforeSend: function(xhr){
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
         },
         type: 'DELETE',
         success: function(result) {
-            $("#note-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
-            NoteService.list();
-            toastr.success("Note deleted!");
+            $("#event-list").html('<div class="spinner-border" role="status"> <span class="sr-only"></span>  </div>');
+            EventService.list();
+            toastr.success("Event deleted!");
         }
       });
     },
 
     choose_color: function(color){
-      $('#addNoteForm input[name="color"]').val(color);
+      $('#addEventForm input[name="color"]').val(color);
     },
 
     share: function(id){
-      $('#shareNoteForm input[name="note_id"]').val(id);
+      $('#shareEventForm input[name="event_id"]').val(id);
       $('#shareModal').modal('show');
     },
 
-    share_note : function(){
-      var note_id = $('#shareNoteForm input[name="note_id"]').val();
-      var recipient = $('#shareNoteForm input[name="recipient"]').val();
+    share_event : function(){
+      var event_id = $('#shareEventForm input[name="event_id"]').val();
+      var recipient = $('#shareEventForm input[name="recipient"]').val();
 
       $.ajax({
-        url: 'rest/notes/'+note_id+'/share',
+        url: 'rest/events/'+event_id+'/share',
         type: 'POST',
         beforeSend: function(xhr){
           xhr.setRequestHeader('Authorization', localStorage.getItem('token'));
@@ -158,7 +158,7 @@ var NoteService = {
         dataType: "json",
         success: function(result) {
             $("#shareModal").modal("hide");
-            toastr.success("Note shared!");
+            toastr.success("Event shared!");
         }
       });
 

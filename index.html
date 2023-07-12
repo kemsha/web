@@ -47,11 +47,11 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#addNoteModal">New Note</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#addEventModal">New Event</button>
         </div>
       </div>
 
-      <div id="note-list" class="row">
+      <div id="event-list" class="row">
         <div class="spinner-border" role="status">
           <span class="sr-only"></span>
         </div>
@@ -65,7 +65,7 @@
 <script src="js/jquery.validate.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<script src="js/note-service.js"></script>
+<script src="js/event-service.js"></script>
 <script src="js/todo-service.js"></script>
 <script src="js/user-service.js"></script>
 
@@ -74,20 +74,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Share Note</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Share Event</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form class="row" id="shareNoteForm">
+        <form class="row" id="shareEventForm">
           <div class="col-auto">
-            <input type='hidden' name='note_id'/>
+            <input type='hidden' name='event_id'/>
             <label class="visually-hidden">Email</label>
             <input name="recipient" type="text" class="form-control-plaintext" value="dino.keco@ibu.edu.ba">
           </div>
           <div class="col-auto">
-            <button type="button" class="btn btn-primary mb-3" onclick="NoteService.share_note()">Share</button>
+            <button type="button" class="btn btn-primary mb-3" onclick="EventService.share_event()">Share</button>
           </div>
         </form>
       </div>
@@ -98,12 +98,12 @@
 </div>
 
 <!-- Add/Update Modal -->
-<div class="modal fade" id="addNoteModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form id="addNoteForm">
+      <form id="addEventForm">
         <div class="modal-header">
-          <h5 class="modal-title">Note</h5>
+          <h5 class="modal-title">Event</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -120,9 +120,9 @@
               <label>Color</label>
               <input name="color" value="white" type="hidden" class="form-control required" placeholder="Enter color">
               <div class="form-control btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn" style="background-color:red; color:red;" onclick="NoteService.choose_color('red');">X</button>
-                <button type="button" class="btn" style="background-color:yellow; color: yellow;" onclick="NoteService.choose_color('yellow');">X</button>
-                <button type="button" class="btn" style="background-color:blue; color:blue;" onclick="NoteService.choose_color('blue');">X</button>
+                <button type="button" class="btn" style="background-color:red; color:red;" onclick="EventService.choose_color('red');">X</button>
+                <button type="button" class="btn" style="background-color:yellow; color: yellow;" onclick="EventService.choose_color('yellow');">X</button>
+                <button type="button" class="btn" style="background-color:blue; color:blue;" onclick="EventService.choose_color('blue');">X</button>
               </div>
             </div>
             <div class="form-group">
@@ -149,7 +149,7 @@
         <div class="modal-body">
 
 
-            <div id="notes-todos" class="list-group">
+            <div id="events-todos" class="list-group">
               <div class="list-group-item">
                 <button class="btn btn-danger btn-sm float-end">delete</button>
                 <p class="list-group-item-text">kkkkkk</p>
@@ -164,7 +164,7 @@
 
         <div class="row">
           <form id="add-todo-form" class="form">
-            <input name="note_id" type="hidden" />
+            <input name="event_id" type="hidden" />
             <div class="row" style="padding: 20px;">
               <div class="col-sm-4">
                 <input name="description" type="text" class="form-control required" placeholder="Todo">
@@ -188,7 +188,7 @@
 
   var token = localStorage.getItem("token");
   if (token){
-    NoteService.init();
+    EventService.init();
   }else{
     window.location.replace("login.html");
   }
