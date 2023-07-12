@@ -25,11 +25,14 @@ Flight::route('POST /login', function() {
 
 Flight::route('POST /register', function(){
     $data = Flight::request()->data->getData();
-    unset($data['Repeat the password']);
+    
     $data['password'] = md5($data['password']);
-
-    $catch = Flight::authService()->add(['username' => $data['password'],
-            'email'=> $data['email']]);
+    $user = Flight::usersService()->add(['first_name' => $data['first_name'],
+    'last_name' => $data['last_name'], 'address' => $data['address']]);
+    $catch = Flight::authService()->add(['password' => $data['password'],
+            'email'=> $data['email'],
+            'admin' => 0,
+            'users_id' => $user['id']]);
     unset($catch['password']);
 
     $jwt = JWT::encode($catch, Config::JWT_SECRET(), 'HS256');
