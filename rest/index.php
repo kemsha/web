@@ -9,7 +9,7 @@ require __DIR__.'/vendor/autoload.php';
 require_once __DIR__.'/services/UsersService.class.php';
 require_once __DIR__.'/services/AuthService.class.php';
 require_once __DIR__.'/services/BookingsService.class.php';
-require_once __DIR__.'/services/EventsService.class.php';
+require_once __DIR__.'/services/eventsService.class.php';
 require_once __DIR__.'/services/TicketsEventsService.class.php';
 require_once __DIR__.'/services/TicketsService.class.php';
 require_once __DIR__.'/services/UsersService.class.php';
