@@ -69,34 +69,6 @@
 <script src="js/todo-service.js"></script>
 <script src="js/user-service.js"></script>
 
-<!-- Share Modal -->
-<div class="modal fade" id="shareModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Share Event</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form class="row" id="shareEventForm">
-          <div class="col-auto">
-            <input type='hidden' name='event_id'/>
-            <label class="visually-hidden">Email</label>
-            <input name="recipient" type="text" class="form-control-plaintext" value="dino.keco@ibu.edu.ba">
-          </div>
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary mb-3" onclick="EventService.share_event()">Share</button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Add/Update Modal -->
 <div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -113,18 +85,8 @@
               <input name="name" type="text" class="form-control required" placeholder="Enter name">
             </div>
             <div class="form-group">
-              <label>Description</label>
-              <input name="description" type="text" class="form-control required" placeholder="Enter description">
-            </div>
-            <div class="form-group">
-              <label>Color</label>
-              <input name="color" value="white" type="hidden" class="form-control required" placeholder="Enter color">
-              <div class="form-control btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn" style="background-color:red; color:red;" onclick="EventService.choose_color('red');">X</button>
-                <button type="button" class="btn" style="background-color:yellow; color: yellow;" onclick="EventService.choose_color('yellow');">X</button>
-                <button type="button" class="btn" style="background-color:blue; color:blue;" onclick="EventService.choose_color('blue');">X</button>
-              </div>
-            </div>
+              <label>Venues</label>
+              <input name="description" type="text" class="form-control required" placeholder="Enter venue name">
             <div class="form-group">
               <label>Created</label>
               <input name="created" type="date" class="form-control required" placeholder="Created date">
