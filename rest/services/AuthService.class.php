@@ -11,7 +11,6 @@ class AuthService extends BaseService {
     public function getAuthByEmail($email){
         return $this->dao->getAuthByEmail($email);
     }
-    
 }
 
 ?>

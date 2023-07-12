@@ -13,7 +13,7 @@ class BookingsTicketsService extends BaseService
     private $authDao;
     private $eventsDao;
     private $bookingsDao;
-    private $evensAndTicketsDao;
+    private $eventsAndTicketsDao;
 
     public function __construct()
     {
@@ -21,7 +21,7 @@ class BookingsTicketsService extends BaseService
         $this->authDao = new AuthDao();
         $this->eventsDao = new EventsDao();
         $this->bookingsDao = new BookingsDao();
-        $this->evensAndTicketsDao = new TicektsEventsDao();
+        $this->eventsAndTicketsDao = new TicketsEventsDao();
     }     
 
     public function addBookingAndTicket($params)

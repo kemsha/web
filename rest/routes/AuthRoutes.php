@@ -1,12 +1,13 @@
 <?php
 
+require __DIR__.'/../vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 Flight::route('POST /login', function() {
     $login = Flight::request()->data->getData();
 
-    $user = Flight::usersService()->getUserByEmail($login['email']);
+    $user = Flight::authService()->getAuthByEmail($login['email']);
 
     if(isset($user['id'])) {
         if($user['password'] == md5($login['password'])) {
@@ -27,11 +28,11 @@ Flight::route('POST /register', function(){
     unset($data['Repeat the password']);
     $data['password'] = md5($data['password']);
 
-    $catch = Flight::userService()->add(['username' => $data['password'],
+    $catch = Flight::authService()->add(['username' => $data['password'],
             'email'=> $data['email']]);
     unset($catch['password']);
 
-    $jwt = JWT::encode($catch, Config::JWT_SECRET(), HS256);
+    $jwt = JWT::encode($catch, Config::JWT_SECRET(), 'HS256');
     Flight::json(['token'=> $jwt]);
 });
 
