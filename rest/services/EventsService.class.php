@@ -25,12 +25,17 @@ class EventsService extends BaseService {
     public function addEvent($params){
         
         $venue = $this->venuesDao->getVenuesByName($params['venue_name']);
-        
-        $event = $this->dao->add([
-            'event_name'=>$params['event_name'],
-            'event_date'=>$params['event_date'],
-            'venues_id'=>$params['venues_id']
-        ]);
+
+        if (isset($venue['id'])){
+            $event = $this->dao->add([
+                'event_name'=>$params['event_name'],
+                'event_date'=>$params['event_date'],
+                'venues_id'=>$params['venues_id']
+            ]);
+        }
+        else{
+            throw new Exception("Venue doesn't exist", 400);
+        }
     }
 
 }
