@@ -8,3 +8,8 @@ Flight::route('POST /ticketsevents', function(){
     $ticketsEvents = Flight::TicketsEventsService()->add($data);
 
 });
+
+Flight::route('DELETE /ticketsevents', function(){
+    Flight::ticketsEventsService()->delete($id);
+    Flight::json(['message'=>'deleted']);
+});
