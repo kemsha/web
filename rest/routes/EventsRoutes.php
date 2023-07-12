@@ -10,6 +10,7 @@ Flight::route('POST /events', function(){
 });
 
 Flight::route('DELETE /events', function(){
+
     Flight::eventsService()->delete($id);
-    Flight::json(['message'=>'deleted'])
+    Flight::json(['message'=>'deleted']);
 });
