@@ -69,7 +69,7 @@
 <script src="js/todo-service.js"></script>
 <script src="js/user-service.js"></script>
 
-<!-- Add/Update Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="addEventModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -79,17 +79,56 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <input type="hidden" name="id" />
             <div class="form-group">
               <label>Name</label>
-              <input name="name" type="text" class="form-control required" placeholder="Enter name">
+              <input name="event_name" type="text" class="form-control required" placeholder="Enter name">
             </div>
             <div class="form-group">
               <label>Venues</label>
-              <input name="description" type="text" class="form-control required" placeholder="Enter venue name">
+              <input name="venue_name" type="text" class="form-control required" placeholder="Enter venue name">
             <div class="form-group">
               <label>Event Date</label>
               <input name="event_date" type="date" class="form-control required" placeholder="Event date">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Update Modal-->
+<div class="modal fade" id="updateEventModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h5 class="modal-title">Event</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input id="id" type="hidden">
+            <div class="form-group">
+              <label>Name</label>
+              <input name="event_name" id="event_name" type="text" class="form-control required">
+            </div>
+            <div class="form-group">
+              <label>Venues</label>
+              <input name="venue_name" id="venue_name" type="text" class="form-control required"> 
+            <div class="form-group">
+              <label>Event Date</label>
+              <input name="event_date" id="event_date" type="date" class="form-control required">
+            </div>
+            <div class="form-group">
+              <label>Venue Location</label>
+              <input name="venue_location" id="venue_location" type="text", class="form-control required">
+            </div>
+            <div class="form-group">
+              <label>Seating Capacity</label>
+              <input name="seating_capacity" id="seating_capacity" type="number", class="form-control required">
             </div>
         </div>
         <div class="modal-footer">

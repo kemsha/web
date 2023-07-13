@@ -42,6 +42,11 @@ Flight::route('GET /events', function () {
 Flight::route('POST /events', function(){
     $data = Flight::request()->data->getData();
     $ticketsEvents = Flight::eventsService()->add($data);
+    if ($ticketsEvents != null) {
+        Flight::json(["message" => "success"]);
+    }else {
+        Flight::json(["Error"=>"The given venue doesn't exist in the system"]);
+    }
 
 });
 

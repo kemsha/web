@@ -19,6 +19,12 @@ class EventsDao extends BaseDao{
         JOIN mydb.venues v on v.id = e.venues_id ", []);
     }
 
+    public function getEventsWithVenuesById($id)
+    {
+        return $this->query("SELECT e.id, e.event_name, e.event_date, v.venue_name, v.venue_location, v.seating_capacity FROM mydb.events e
+        JOIN mydb.venues v on v.id = e.venues_id WHERE e.id = :id", ["id"=>$id]);
+    }
+
 }
 
 ?>
