@@ -29,9 +29,6 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
           </ul>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -63,7 +60,6 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/jquery.validate.min.js"></script>
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="js/event-service.js"></script>
 <script src="js/todo-service.js"></script>
@@ -101,7 +97,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="todoModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
         <div class="modal-header">
@@ -111,7 +107,7 @@
         <div class="modal-body">
 
 
-            <div id="events-todos" class="list-group">
+            <div id="events-events" class="list-group">
               <div class="list-group-item">
                 <button class="btn btn-danger btn-sm float-end">delete</button>
                 <p class="list-group-item-text">kkkkkk</p>
@@ -125,7 +121,7 @@
         </div>
 
         <div class="row">
-          <form id="add-todo-form" class="form">
+          <form id="add-event-form" class="form">
             <input name="event_id" type="hidden" />
             <div class="row" style="padding: 20px;">
               <div class="col-sm-4">
