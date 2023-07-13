@@ -3,6 +3,29 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+ /**
+     * @OA\Post(
+     *     path="/login",
+     *     description="Login to the system",
+     *     tags={"JWT"},
+     *     @OA\RequestBody(description="Basic user info", required=true,
+     *       @OA\MediaType(mediaType="application/json",
+     *    			@OA\Schema(
+     *    				@OA\Property(property="email", type="string", example="a@gmail.com",	description="Email"),
+     *    				@OA\Property(property="password", type="string", example="1234",	description="Password" )
+     *          )
+     *     )),
+     *     @OA\Response(
+     *         response=200,
+     *         description="JWT token on successful response",
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="unauthorized",
+     *     )
+     * )
+     */
+
 Flight::route('POST /login', function() {
     $login = Flight::request()->data->getData();
 
@@ -21,6 +44,32 @@ Flight::route('POST /login', function() {
         Flight::json(["message" => "User does not exist"], 404);
     }
 });
+
+/**
+* @OA\Post(
+*     path="/public/register",
+*     description="Register a user into the app",
+*     tags={"users"},
+*     @OA\RequestBody(description="Basic user register info", required=true,
+*       @OA\MediaType(mediaType="application/json",
+*    			@OA\Schema(
+*           @OA\Property(property="first_name", type="string", example="arijan",	description="User first name"),
+*           @OA\Property(property="last_name", type="string", example="komsic",	description="User last name"),
+*           @OA\Property(property="password", type="string", example="1234",	description="User password"),
+*           @OA\Property(property="address", type="string", example="123456789",	description="User phonenumber"),
+*           @OA\Property(property="email", type="string", example="a@gmail.com",	description="User email"),
+*        )
+*     )),
+*     @OA\Response(
+*         response=200,
+*         description="JWT Token"
+*     ),
+*     @OA\Response(
+*         response=404,
+*         description="User not found"
+*     ),
+* )
+*/
 
 Flight::route('POST /register', function(){
     $data = Flight::request()->data->getData();

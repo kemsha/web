@@ -30,6 +30,11 @@ class BookingsTicketsDao extends BaseDao {
         $result->execute(['id' => $id]);
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function deleteBooking(){
+        $stm = $this->conn->prepare("DELETE FROM bookingstickets WHERE booking_id = :booking_id");
+        $stm->bindParam(':booking_id', $booking_id);
+        $stm->execute();
+    }
 
 }
 

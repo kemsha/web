@@ -23,4 +23,12 @@ class TicketsEventsService extends BaseService {
         ]);
 
     }
+
+    public function deleteTicket($ticket_id){
+        return $this->dao->deleteTicket($ticket_id);
+    }
+
+    public function deleteEvent($event_id){
+        return $this->dao->deleteEvent($event_id);
+    }
 }

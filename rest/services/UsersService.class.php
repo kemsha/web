@@ -12,6 +12,10 @@ class UsersService extends BaseService {
     public function getUserByName($first_name,$last_name){
         return $this->dao->getUserByName($first_name,$last_name);
     }
+
+    public function getById($id){
+        return $this->dao->getById($id);
+    }
 }
 
 ?>

@@ -12,6 +12,10 @@ class VenuesService extends BaseService {
     public function getVenuesByName($venue_name){
         return $this->dao->getVenuesByName($venue_name);
     }
+
+    public function getVenuesById($id){
+        return $this->dao->getVenuesById($id);
+    }
 }
 
 ?>
