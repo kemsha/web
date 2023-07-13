@@ -21,6 +21,10 @@ class EventsService extends BaseService {
     public function getEventsWithVenues(){
         return $this->dao->getEventsWithVenues();
     }
+
+    public function getEventsWithVenuesById($id){
+        return $this->dao->getEventsWithVenuesById($id);
+    }
     
     public function addEvent($params){
         
@@ -32,9 +36,10 @@ class EventsService extends BaseService {
                 'event_date'=>$params['event_date'],
                 'venues_id'=>$params['venues_id']
             ]);
+            return $event;
         }
         else{
-            throw new Exception("Venue doesn't exist", 400);
+            return null;
         }
     }
 

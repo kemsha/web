@@ -9,18 +9,13 @@ class TicketsService extends BaseService {
         parent::__construct(new TicketsDao());
     }
 
-    public function getTicketByName($ticket_name){
-        return $this->dao->getTicketByName($ticket_name);
+    public function getTicketByType($ticket_type){
+        return $this->dao->getTicketByType($ticket_type);
     }
 
-    public function addTicket($params){
+    public function getTicketById($id){
 
-        $ticket = $this->TicketsDao->add([
-            'ticket_type'=>$params['ticket_type'],
-            'ticket_price'=>$params['ticket_price']
-        ]);
+        return $this->dao->getTicketById($id);
     }
-    
 }
-
 ?>

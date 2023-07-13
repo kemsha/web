@@ -29,6 +29,18 @@ class TicektsEventsDao extends BaseDao {
         $result->execute(['id'=>$id]);
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteTickets(){
+        $stm = $this->conn->prepare("DELETE FROM ticketsevents WHERE ticket_id = :ticket_id");
+        $stm->bindParam(':ticket_id', $ticket_id);
+        $stm->execute();
+    }
+
+    public function deleteEvent(){
+        $stm = $this->conn->prepare("DELETE FROM ticketsevents WHERE event_id = :event_id");
+        $stm->bindParam(':event_id', $event_id);
+        $stm->execute();
+    }
 }
 
 ?>
