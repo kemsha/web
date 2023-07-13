@@ -30,10 +30,11 @@ var EventService = {
            for(let i = 0; i < data.length; i++){
              html += `
              <div class="col-lg-3">
-               <div class="card">
+               <div class="card" style="padding-top:20px;">
                  <img class="card-img-top" src="https://www.noise11.com/wp/wp-content/uploads/2014/02/Eminem-photo-by-Jeremy-Deputat.jpg" alt="Card image cap">
                  <div class="card-body">
                    <h5 class="card-title">`+ data[i].event_name +`</h5>
+                   <p class="card-text">`+ data[i].venue_name +`</p>         
                    <p class="card-text">`+ data[i].event_date +`</p>
                    <div class="btn-group" role="group">
                      <button type="button" class="btn btn-primary event-button" onclick="EventService.get(`+data[i].id+`)">Edit</button>
